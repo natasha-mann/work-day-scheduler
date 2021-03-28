@@ -50,15 +50,18 @@ const storeHourlyTasks = (event) => {
 const getHourlyTasksFromLocalStorage = () => {
   const hourlyTasks = localStorage.getItem("hourlyTasks");
   if (hourlyTasks) {
-    setTextContent();
+    // set text content of text area to match task value
+    setTextContent(hourlyTasks);
     return JSON.parse(hourlyTasks);
   } else {
     return [];
   }
 };
 
-// Set text content of hourly tasks
-const setTextContent = () => {};
+// set text content
+const setTextContent = (hourlyTasks) => {
+  console.log("ok!");
+};
 
 // when the page loads
 const onLoad = () => {
