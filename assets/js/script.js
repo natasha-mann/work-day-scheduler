@@ -60,9 +60,12 @@ const getHourlyTasksObjectFromLocalStorage = () => {
 const setTextContent = () => {
   // for each textArea, if hourlyTasks.hour matches data-time attribute, set text content to hourlyTasks.task
   const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
-  console.log(hourlyTasks[0].task);
-  hourlyTasks.forEach((item, index) => {
-    $(textAreas[index]).text(hourlyTasks[index].task);
+
+  textAreas.each((index) => {
+    const timeBlockHour = parseInt(textAreas[index].dataset.time);
+    if (hourlyTasks[0].hour === timeBlockHour) {
+      $(textAreas[index]).text(hourlyTasks[0].task);
+    }
   });
 };
 
