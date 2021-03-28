@@ -34,20 +34,31 @@ const storeHourlyTasks = (event) => {
   const target = $(event.target);
 
   if (target.is("button")) {
-    const hour = target.siblings("textarea").dataset.time;
-    console.log(hour);
+    const hour = target.siblings("textarea").data("time");
+    const task = target.siblings("textarea").val();
+    const userTask = {
+      hour: hour,
+      task: task,
+    };
+    const hourlyTasks = getHourlyTasksFromLocalStorage();
+    hourlyTasks.push(userTask);
+    localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
   }
 };
 
 // Get hourly tasks from local storage
 const getHourlyTasksFromLocalStorage = () => {
-  let hourlyTasks = localStorage.getItem("hourlyTasks");
+  const hourlyTasks = localStorage.getItem("hourlyTasks");
   if (hourlyTasks) {
+    setTextContent();
     return JSON.parse(hourlyTasks);
   } else {
-    return {};
+    return [];
   }
 };
+
+// Set text content of hourly tasks
+const setTextContent = () => {};
 
 // when the page loads
 const onLoad = () => {
