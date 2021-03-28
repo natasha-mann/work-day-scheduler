@@ -14,10 +14,28 @@ const startTimer = () => {
   setInterval(timerTick, 1000);
 };
 
+// remove AM/PM to get hour from time block
+const getHourFromTimeBlock = (row) => {
+  const onlyNumbers = row.innerText.slice(0, -2);
+  return [onlyNumbers];
+};
+
+// get array of time blocks from html
+const getTimeBlockArray = () => {
+  const timeBlocks = $(".container .row .hour");
+  const timeBlockArray = $.map(timeBlocks, getHourFromTimeBlock);
+  return timeBlockArray;
+};
+
+// set colour of time blocks to show past/present/future
+const colorCodeTimeBlocks = () => {
+  const currentHour = moment().format("HH");
+};
+
 const onLoad = () => {
   getCurrentDateTime();
-
   startTimer();
+  colorCodeTimeBlocks();
 };
 
 $(document).ready(onLoad);
