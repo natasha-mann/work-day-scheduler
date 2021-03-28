@@ -47,11 +47,9 @@ const storeHourlyTasks = (event) => {
 };
 
 // Get hourly tasks from local storage
-const getHourlyTasksFromLocalStorage = () => {
+const getHourlyTasksObjectFromLocalStorage = () => {
   const hourlyTasks = localStorage.getItem("hourlyTasks");
   if (hourlyTasks) {
-    // set text content of text area to match task value
-    setTextContent(hourlyTasks);
     return JSON.parse(hourlyTasks);
   } else {
     return [];
@@ -59,15 +57,16 @@ const getHourlyTasksFromLocalStorage = () => {
 };
 
 // set text content
-const setTextContent = (hourlyTasks) => {
-  console.log("ok!");
+const setTextContent = () => {
+  // for each textArea, if hourlyTasks.hour matches data-time attribute, set text content to hourlyTasks.task
 };
 
 // when the page loads
 const onLoad = () => {
   getCurrentDate();
   colorCodeTimeBlocks();
-  getHourlyTasksFromLocalStorage();
+  getHourlyTasksObjectFromLocalStorage();
+  setTextContent();
 };
 
 $(document).ready(onLoad);
