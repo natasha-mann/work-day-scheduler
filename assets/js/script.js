@@ -31,19 +31,18 @@ const setColor = (index) => {
 
 // Save hourly tasks to local storage
 const storeHourlyTasks = (event) => {
-  const target = $(event.target);
+  const target = $(event.currentTarget);
 
-  if (target.is("button")) {
-    const hour = target.siblings("textarea").data("time");
-    const task = target.siblings("textarea").val();
-    const userTask = {
-      hour: hour,
-      task: task,
-    };
-    const hourlyTasks = getHourlyTasksObjectFromLocalStorage();
-    hourlyTasks.push(userTask);
-    localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
-  }
+  console.log("hi");
+  const hour = target.siblings("textarea").data("time");
+  const task = target.siblings("textarea").val();
+  const userTask = {
+    hour: hour,
+    task: task,
+  };
+  const hourlyTasks = getHourlyTasksObjectFromLocalStorage();
+  hourlyTasks.push(userTask);
+  localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
 };
 
 // Get hourly tasks from local storage
@@ -61,11 +60,13 @@ const setTextContent = () => {
   // for each textArea, if hourlyTasks.hour matches data-time attribute, set text content to hourlyTasks.task
   const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
 
-  textAreas.each((index) => {
-    const timeBlockHour = parseInt(textAreas[index].dataset.time);
-    if (hourlyTasks[0].hour === timeBlockHour) {
-      $(textAreas[index]).text(hourlyTasks[0].task);
-    }
+  textAreas.each((i, element) => {
+    const timeBlockHour = parseInt(element.dataset.time);
+    $.each(hourlyTasks, (index, value) => {
+      if (value.hour === timeBlockHour) {
+        $(element).text(value.task);
+      }
+    });
   });
 };
 
@@ -78,4 +79,4 @@ const onLoad = () => {
 };
 
 $(document).ready(onLoad);
-$(daySchedulerContainer).on("click", storeHourlyTasks);
+$(daySchedulerContainer).on("click", "button", storeHourlyTasks);
