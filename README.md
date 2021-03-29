@@ -15,7 +15,7 @@ Click [here](https://natasha-mann.github.io/work-day-scheduler/) to view the dep
 
 ## About the Project
 
-In this project I had to use jQuery and moment.js to add functionality to a day planner website. The requirements as follows:
+In this project I had to use jQuery and moment.js to add functionality to a day planner website. The requirements were as follows:
 
 - On load of the page the current date should be displayed in the header.
 - Each hour of the planner should be colour coded to show which hours are in the past, which is the current hour and which are in the future.
