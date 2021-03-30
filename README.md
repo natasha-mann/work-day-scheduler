@@ -31,8 +31,8 @@ In this project I had to use jQuery and moment.js to add functionality to a day 
 
 ### Image showing no errors in console
 
-![image](assets/images/screenshot-2.png)
+![image](assets/images/screenshot-2.PNG)
 
 ### Image showing local storage
 
-![image](assets/images/screenshot-3.png)
+![image](assets/images/screenshot-3.PNG)
