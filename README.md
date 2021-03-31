@@ -22,6 +22,7 @@ In this project I had to use jQuery and moment.js to add functionality to a day 
 - The user can add text to each hour.
 - The input text can be saved into local storage.
 - When the page is refreshed, the stored text is still visible on the page.
+- I also added a timer to check the time every minute and then update the colour coded bars accordingly.
 
 ## Screenshots
 
