@@ -30,6 +30,9 @@ const setColor = (index, element) => {
   }
 };
 
+// timer to run color code function every minute to check if the hour has changed + update colors
+const timer = setInterval(colorCodeTimeBlocks, 60000);
+
 // Save user inputted hourly tasks to local storage
 const storeHourlyTasks = (event) => {
   const target = $(event.currentTarget);
