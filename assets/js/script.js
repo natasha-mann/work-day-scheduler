@@ -1,39 +1,51 @@
 const daySchedulerContainer = $(".container");
-const textAreas = daySchedulerContainer.children().children("textarea");
+const textAreas = $('.container textarea[name="task"]');
 
-//get current time from moment.js
-const getCurrentDate = () => {
-  const currentDate = moment().format("dddd Do MMMM");
-  $("#currentDay").text(currentDate);
-  return currentDate;
+const getFromLocalStorage = () => {
+  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
+
+  return hourlyTasks ? hourlyTasks : [];
 };
 
-// set colour of time blocks to show past/present/future
+const renderCurrentDate = () => {
+  const currentDate = moment().format("dddd Do MMMM");
+  $("#currentDay").text(currentDate);
+};
+
 const colorCodeTimeBlocks = () => {
+  const setColor = (index, element) => {
+    const currentHour = moment().hour();
+    const timeBlockHour = parseInt(element.dataset.time, 10);
+
+    if (timeBlockHour < currentHour) {
+      $(element).removeClass("future present");
+      $(element).addClass("past");
+    } else if (timeBlockHour === currentHour) {
+      $(element).removeClass("past future");
+      $(textAreas[index]).addClass("present");
+    } else {
+      $(element).removeClass("present past");
+      $(element).addClass("future");
+    }
+  };
+
   textAreas.each(setColor);
 };
 
-// callback function for colorCodeTimeBlocks
-const setColor = (index, element) => {
-  const currentHour = parseInt(moment().format("HH"));
-  const timeBlockHour = parseInt(element.dataset.time);
+const setTextContent = () => {
+  const hourlyTasks = getFromLocalStorage();
 
-  if (timeBlockHour < currentHour) {
-    $(element).removeClass("future present");
-    $(element).addClass("past");
-  } else if (timeBlockHour === currentHour) {
-    $(element).removeClass("past future");
-    $(textAreas[index]).addClass("present");
-  } else {
-    $(element).removeClass("present past");
-    $(element).addClass("future");
-  }
+  textAreas.each((i, element) => {
+    const timeBlockHour = parseInt(element.dataset.time, 10);
+
+    $.each(hourlyTasks, (index, value) => {
+      if (value.hour === timeBlockHour) {
+        $(element).text(value.task);
+      }
+    });
+  });
 };
 
-// timer to run color code function every minute to check if the hour has changed + update colors
-const timer = setInterval(colorCodeTimeBlocks, 60000);
-
-// Save user inputted hourly tasks to local storage
 const storeHourlyTasks = (event) => {
   const target = $(event.currentTarget);
 
@@ -48,38 +60,14 @@ const storeHourlyTasks = (event) => {
   localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
 };
 
-// Get hourly tasks from local storage
-const getFromLocalStorage = () => {
-  const hourlyTasks = localStorage.getItem("hourlyTasks");
-  if (hourlyTasks) {
-    return JSON.parse(hourlyTasks);
-  } else {
-    return [];
-  }
-};
-
-// set text content of text area with tasks stored in local storage
-const setTextContent = () => {
-  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
-
-  textAreas.each((i, element) => {
-    const timeBlockHour = parseInt(element.dataset.time);
-
-    $.each(hourlyTasks, (index, value) => {
-      if (value.hour === timeBlockHour) {
-        $(element).text(value.task);
-      }
-    });
-  });
-};
-
-// when the page loads
 const onLoad = () => {
-  getCurrentDate();
+  renderCurrentDate();
   colorCodeTimeBlocks();
-  getFromLocalStorage();
   setTextContent();
+
+  setInterval(colorCodeTimeBlocks, 60000);
 };
 
 $(document).ready(onLoad);
+
 $(daySchedulerContainer).on("click", "button", storeHourlyTasks);
