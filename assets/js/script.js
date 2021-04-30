@@ -52,7 +52,7 @@ const getFromLocalStorage = () => {
 
 // set text content of text area with tasks stored in local storage
 const setTextContent = () => {
-  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
+  const hourlyTasks = getFromLocalStorage();
 
   textAreas.each((i, element) => {
     const timeBlockHour = parseInt(element.dataset.time);
