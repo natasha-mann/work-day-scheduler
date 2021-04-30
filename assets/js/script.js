@@ -6,11 +6,9 @@ const renderCurrentDate = () => {
   $("#currentDay").text(currentDate);
 };
 
-// set colour of time blocks to show past/present/future
 const colorCodeTimeBlocks = () => {
-  // callback function for colorCodeTimeBlocks
   const setColor = (index, element) => {
-    const currentHour = parseInt(moment().format("HH"));
+    const currentHour = moment().hour();
     const timeBlockHour = parseInt(element.dataset.time);
 
     if (timeBlockHour < currentHour) {
