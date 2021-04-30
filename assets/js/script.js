@@ -1,11 +1,9 @@
 const daySchedulerContainer = $(".container");
 const textAreas = $('.container textarea[name="task"]');
 
-//get current time from moment.js
-const getCurrentDate = () => {
+const renderCurrentDate = () => {
   const currentDate = moment().format("dddd Do MMMM");
   $("#currentDay").text(currentDate);
-  return currentDate;
 };
 
 // set colour of time blocks to show past/present/future
@@ -75,7 +73,7 @@ const setTextContent = () => {
 
 // when the page loads
 const onLoad = () => {
-  getCurrentDate();
+  renderCurrentDate();
   colorCodeTimeBlocks();
   getFromLocalStorage();
   setTextContent();
