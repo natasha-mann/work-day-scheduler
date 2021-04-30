@@ -46,11 +46,8 @@ const storeHourlyTasks = (event) => {
 
 const getFromLocalStorage = () => {
   const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
-  if (hourlyTasks) {
-    return hourlyTasks;
-  } else {
-    return [];
-  }
+
+  return hourlyTasks ? hourlyTasks : [];
 };
 
 // set text content of text area with tasks stored in local storage
