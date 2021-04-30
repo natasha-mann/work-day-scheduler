@@ -26,9 +26,6 @@ const colorCodeTimeBlocks = () => {
   textAreas.each(setColor);
 };
 
-// timer to run color code function every minute to check if the hour has changed + update colors
-const timer = setInterval(colorCodeTimeBlocks, 60000);
-
 // Save user inputted hourly tasks to local storage
 const storeHourlyTasks = (event) => {
   const target = $(event.currentTarget);
@@ -50,7 +47,6 @@ const getFromLocalStorage = () => {
   return hourlyTasks ? hourlyTasks : [];
 };
 
-// set text content of text area with tasks stored in local storage
 const setTextContent = () => {
   const hourlyTasks = getFromLocalStorage();
 
@@ -70,6 +66,8 @@ const onLoad = () => {
   renderCurrentDate();
   colorCodeTimeBlocks();
   setTextContent();
+
+  const timer = setInterval(colorCodeTimeBlocks, 60000);
 };
 
 $(document).ready(onLoad);
