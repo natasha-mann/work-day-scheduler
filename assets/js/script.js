@@ -1,6 +1,12 @@
 const daySchedulerContainer = $(".container");
 const textAreas = $('.container textarea[name="task"]');
 
+const getFromLocalStorage = () => {
+  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
+
+  return hourlyTasks ? hourlyTasks : [];
+};
+
 const renderCurrentDate = () => {
   const currentDate = moment().format("dddd Do MMMM");
   $("#currentDay").text(currentDate);
@@ -26,27 +32,6 @@ const colorCodeTimeBlocks = () => {
   textAreas.each(setColor);
 };
 
-// Save user inputted hourly tasks to local storage
-const storeHourlyTasks = (event) => {
-  const target = $(event.currentTarget);
-
-  const hour = target.siblings("textarea").data("time");
-  const task = target.siblings("textarea").val();
-  const userTask = {
-    hour: hour,
-    task: task,
-  };
-  const hourlyTasks = getFromLocalStorage();
-  hourlyTasks.push(userTask);
-  localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
-};
-
-const getFromLocalStorage = () => {
-  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
-
-  return hourlyTasks ? hourlyTasks : [];
-};
-
 const setTextContent = () => {
   const hourlyTasks = getFromLocalStorage();
 
@@ -61,7 +46,20 @@ const setTextContent = () => {
   });
 };
 
-// when the page loads
+const storeHourlyTasks = (event) => {
+  const target = $(event.currentTarget);
+
+  const hour = target.siblings("textarea").data("time");
+  const task = target.siblings("textarea").val();
+  const userTask = {
+    hour: hour,
+    task: task,
+  };
+  const hourlyTasks = getFromLocalStorage();
+  hourlyTasks.push(userTask);
+  localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
+};
+
 const onLoad = () => {
   renderCurrentDate();
   colorCodeTimeBlocks();
@@ -71,4 +69,5 @@ const onLoad = () => {
 };
 
 $(document).ready(onLoad);
+
 $(daySchedulerContainer).on("click", "button", storeHourlyTasks);
