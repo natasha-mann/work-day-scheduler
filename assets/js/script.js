@@ -8,24 +8,24 @@ const renderCurrentDate = () => {
 
 // set colour of time blocks to show past/present/future
 const colorCodeTimeBlocks = () => {
+  // callback function for colorCodeTimeBlocks
+  const setColor = (index, element) => {
+    const currentHour = parseInt(moment().format("HH"));
+    const timeBlockHour = parseInt(element.dataset.time);
+
+    if (timeBlockHour < currentHour) {
+      $(element).removeClass("future present");
+      $(element).addClass("past");
+    } else if (timeBlockHour === currentHour) {
+      $(element).removeClass("past future");
+      $(textAreas[index]).addClass("present");
+    } else {
+      $(element).removeClass("present past");
+      $(element).addClass("future");
+    }
+  };
+
   textAreas.each(setColor);
-};
-
-// callback function for colorCodeTimeBlocks
-const setColor = (index, element) => {
-  const currentHour = parseInt(moment().format("HH"));
-  const timeBlockHour = parseInt(element.dataset.time);
-
-  if (timeBlockHour < currentHour) {
-    $(element).removeClass("future present");
-    $(element).addClass("past");
-  } else if (timeBlockHour === currentHour) {
-    $(element).removeClass("past future");
-    $(textAreas[index]).addClass("present");
-  } else {
-    $(element).removeClass("present past");
-    $(element).addClass("future");
-  }
 };
 
 // timer to run color code function every minute to check if the hour has changed + update colors
