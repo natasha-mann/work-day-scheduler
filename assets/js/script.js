@@ -9,7 +9,7 @@ const renderCurrentDate = () => {
 const colorCodeTimeBlocks = () => {
   const setColor = (index, element) => {
     const currentHour = moment().hour();
-    const timeBlockHour = parseInt(element.dataset.time);
+    const timeBlockHour = parseInt(element.dataset.time, 10);
 
     if (timeBlockHour < currentHour) {
       $(element).removeClass("future present");
@@ -55,7 +55,7 @@ const setTextContent = () => {
   const hourlyTasks = getFromLocalStorage();
 
   textAreas.each((i, element) => {
-    const timeBlockHour = parseInt(element.dataset.time);
+    const timeBlockHour = parseInt(element.dataset.time, 10);
 
     $.each(hourlyTasks, (index, value) => {
       if (value.hour === timeBlockHour) {
