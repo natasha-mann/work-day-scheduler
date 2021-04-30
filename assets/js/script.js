@@ -1,5 +1,5 @@
 const daySchedulerContainer = $(".container");
-const textAreas = daySchedulerContainer.children().children("textarea");
+const textAreas = $('.container textarea[name="task"]');
 
 //get current time from moment.js
 const getCurrentDate = () => {
