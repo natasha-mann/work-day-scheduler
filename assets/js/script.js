@@ -67,7 +67,7 @@ const onLoad = () => {
   colorCodeTimeBlocks();
   setTextContent();
 
-  const timer = setInterval(colorCodeTimeBlocks, 60000);
+  setInterval(colorCodeTimeBlocks, 60000);
 };
 
 $(document).ready(onLoad);
