@@ -44,11 +44,10 @@ const storeHourlyTasks = (event) => {
   localStorage.setItem("hourlyTasks", JSON.stringify(hourlyTasks));
 };
 
-// Get hourly tasks from local storage
 const getFromLocalStorage = () => {
-  const hourlyTasks = localStorage.getItem("hourlyTasks");
+  const hourlyTasks = JSON.parse(localStorage.getItem("hourlyTasks"));
   if (hourlyTasks) {
-    return JSON.parse(hourlyTasks);
+    return hourlyTasks;
   } else {
     return [];
   }
