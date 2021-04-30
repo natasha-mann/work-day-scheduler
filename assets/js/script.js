@@ -69,7 +69,6 @@ const setTextContent = () => {
 const onLoad = () => {
   renderCurrentDate();
   colorCodeTimeBlocks();
-  getFromLocalStorage();
   setTextContent();
 };
 
